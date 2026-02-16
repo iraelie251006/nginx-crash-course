@@ -79,3 +79,22 @@ http {
 }
 
 ```
+
+##### Example of how to enable secure communication via https
+```nginx
+server {
+        listen 443 ssl;
+        server_name localhost;
+
+        ssl_certificate /Users/mac/nginx-certs/nginx-selfsigned.crt;
+        ssl_certificate_key /Users/mac/nginx-certs/nginx-selfsigned.key;
+
+        location / {
+            proxy_pass http://backend_cluster;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header User-Agent $http_user_agent;
+            proxy_set_header Cookie $http_cookie;
+        }
+    }
+```

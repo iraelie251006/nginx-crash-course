@@ -46,3 +46,36 @@ cd ~/nginx-certs
 openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout nginx-selfsigned.key -out nginx-selfsigned.crt
 ```
 
+##### Example nginx config used
+```nginx
+worker_processes 1;
+
+events {
+    worker_connections 1024;
+}
+
+http {
+    include mime.types;
+
+    upstream backend_cluster {
+        least_conn;
+        server 127.0.0.1:3001;
+        server 127.0.0.1:3002;
+        server 127.0.0.1:3003;
+    }
+
+    server {
+        listen 8080;
+        server_name localhost;
+
+        location / {
+            proxy_pass http://backend_cluster;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header User-Agent $http_user_agent;
+            proxy_set_header Cookie $http_cookie;
+        }
+    }
+}
+
+```

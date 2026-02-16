@@ -98,3 +98,15 @@ server {
         }
     }
 ```
+
+##### Example of how to handle redirects
+```nginx
+server {
+        listen 80;
+        server_name localhost;
+
+        location / {
+            return 301 https://$host$uri;
+        }
+    }
+```

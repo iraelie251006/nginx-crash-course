@@ -6,7 +6,7 @@
     "scripts": {
       "start": "node server.js"
     },
-    "author": "Your Name",
+    "author": "Irakoze Elie",
     "license": "MIT",
     "dependencies": {
       "express": "^4.17.1",

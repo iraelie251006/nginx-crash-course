@@ -15,6 +15,7 @@
 `nginx -s stop`  
 
 ##### print logs
+**It depends on type of OS you are using**
 `tail -f /usr/local/var/log/nginx/access.log`
 
 ##### restart nginx
